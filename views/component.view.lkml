@@ -1,4 +1,5 @@
 # The name of this view in Looker is "Component"
+include: "/views/supplier.view"
 view: component {
   # The sql_table_name parameter indicates the underlying database table
   # to be used for all fields in this view.
@@ -21,6 +22,7 @@ view: component {
   dimension: component_name {
     type: string
     sql: ${TABLE}.component_name ;;
+    drill_fields: [material_supplier*]
   }
 
   dimension: product_id {
@@ -32,5 +34,17 @@ view: component {
   measure: count {
     type: count
     drill_fields: [id, component_name, product.product_id, product.name, material.count]
+  }
+
+  #ashish
+  set: material_supplier {
+    fields: [
+      component_name,
+      supplier.material,
+      supplier.co2_emission,
+      supplier.rrr,
+      supplier.rri,
+      product_id
+      ]
   }
 }

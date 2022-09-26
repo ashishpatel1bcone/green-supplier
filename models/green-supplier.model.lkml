@@ -22,25 +22,14 @@ persist_with: green-supplier_default_datagroup
 # To see the Explore you’re building, navigate to the Explore menu and select an Explore under "Green-supplier"
 
 explore: component {
-  join: product {
+  join: material {
     type: left_outer
-    sql_on: ${component.product_id} = ${product.product_id} ;;
-    relationship: many_to_one
+    sql_on: ${component.id}= ${material.component_id} ;;
+    relationship: many_to_many
   }
 }
 
 explore: material {
-  join: component {
-    type: left_outer
-    sql_on: ${material.component_id} = ${component.id} ;;
-    relationship: many_to_one
-  }
-
-  join: product {
-    type: left_outer
-    sql_on: ${component.product_id} = ${product.product_id} ;;
-    relationship: many_to_one
-  }
 }
 
 # To create more sophisticated Explores that involve multiple views, you can use the join parameter.
