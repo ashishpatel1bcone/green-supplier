@@ -47,23 +47,22 @@ explore: material {
 # Typically, join parameters require that you define the join type, join relationship, and a sql_on clause.
 # Each joined view also needs to define a primary key.
 
-explore: supplier {
+explore: supplier {}
+
+explore: product {
+  join: component {
+    type: left_outer
+    sql_on: ${product.product_id} = ${component.product_id} ;;
+    relationship: many_to_many
+  }
   join: material {
     type: left_outer
-    sql_on: ${supplier.material} = ${material.name} ;;
-    relationship: many_to_one
+    sql_on: ${component.id}= ${material.component_id} ;;
+    relationship: many_to_many
   }
-  join: component{
+  join: supplier {
     type: left_outer
-    sql_on: ${material.component_id} = ${component.id} ;;
-    relationship: many_to_one
-  }
-
- join: product{
-    type: left_outer
-    sql_on: ${component.product_id} = ${product.product_id} ;;
-    relationship: many_to_one
+    sql_on: ${material.name}= ${supplier.material} ;;
+    relationship: many_to_many
   }
 }
-
-explore: product {}
